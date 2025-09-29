@@ -186,3 +186,114 @@ Console.WriteLine(p2.X); // 10
 - векторов в физике,
 - цветов,
 - небольших сущностей вроде денег, дат, координат.
+
+# Пример 
+
+```csharp
+using System;
+
+public struct Point
+{
+    public int X;
+    public int Y;
+
+    public Point(int x, int y)
+    {
+        X = x;
+        Y = y;
+    }
+
+    // Метод вычисления расстояния между двумя точками
+    public double DistanceTo(Point other)
+    {
+        int dx = X - other.X;
+        int dy = Y - other.Y;
+        return Math.Sqrt(dx * dx + dy * dy);
+    }
+
+    public override string ToString() => $"({X}, {Y})";
+}
+
+public struct Money
+{
+    public int Rubles;
+    public int Kopecks;
+
+    public Money(int rub, int kop)
+    {
+        Rubles = rub;
+        Kopecks = kop;
+
+        // Автоматическая нормализация (100 копеек = 1 рубль)
+        if (Kopecks >= 100)
+        {
+            Rubles += Kopecks / 100;
+            Kopecks %= 100;
+        }
+    }
+
+    public override string ToString() => $"{Rubles} руб. {Kopecks:D2} коп.";
+}
+
+public struct Color
+{
+    public byte R;
+    public byte G;
+    public byte B;
+
+    public Color(byte r, byte g, byte b)
+    {
+        R = r;
+        G = g;
+        B = b;
+    }
+
+    public string ToHex() => $"#{R:X2}{G:X2}{B:X2}";
+
+    public override string ToString() => $"RGB({R}, {G}, {B})";
+}
+
+class Program
+{
+    static void Main()
+    {
+        // ===== Работа с точками =====
+        Point p1 = new Point(0, 0);
+        Point p2 = new Point(3, 4);
+
+        Console.WriteLine($"Первая точка: {p1}");
+        Console.WriteLine($"Вторая точка: {p2}");
+        Console.WriteLine($"Расстояние между точками: {p1.DistanceTo(p2)}");
+
+        Console.WriteLine();
+
+        // ===== Работа с деньгами =====
+        Money price = new Money(10, 150); // будет автоматически нормализовано в 11 руб. 50 коп.
+        Console.WriteLine($"Цена товара: {price}");
+
+        Console.WriteLine();
+
+        // ===== Работа с цветами =====
+        Color red = new Color(255, 0, 0);
+        Console.WriteLine($"Красный цвет: {red} -> {red.ToHex()}");
+
+        Color custom = new Color(128, 200, 50);
+        Console.WriteLine($"Смешанный цвет: {custom} -> {custom.ToHex()}");
+    }
+}
+```
+
+---
+
+## Вывод программы:
+
+```
+Первая точка: (0, 0)
+Вторая точка: (3, 4)
+Расстояние между точками: 5
+
+Цена товара: 11 руб. 50 коп.
+
+Красный цвет: RGB(255, 0, 0) -> #FF0000
+Смешанный цвет: RGB(128, 200, 50) -> #80C832
+```
