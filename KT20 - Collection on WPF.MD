@@ -270,8 +270,8 @@ XAML с DataGrid:
     </DataGrid.Columns>
 </DataGrid>
 ```
-![Xml](https://docs.devexpress.com/WPF/images/DataGrid_BindToLocalCollection_Result.png)
-![xml2](https://www.c-sharpcorner.com/UploadFile/mahesh/datagrid-in-wpf/Images/WpfDataGridImg2.gif)
+![xml1](image.png)
+![xml2](image-1.png)
 
 
 
